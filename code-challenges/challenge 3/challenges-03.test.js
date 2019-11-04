@@ -72,7 +72,10 @@ Here is an example of the input:
 ------------------------------------------------------------------------------------------------ */
 
 const sortByPrice = (arr) => {
-  // Solution code here...
+  arr.sort((a, b) => {
+    return a.price > b.price;
+  });
+  return(arr.sort())
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -261,7 +264,7 @@ describe('Testing challenge 7', () => {
   });
 });
 
-xdescribe('Testing challenge 8', () => {
+describe('Testing challenge 8', () => {
   test('It should sort people with more strict ordering', () => {
     const family = [
       new Person('Casey', 'Codefellows', 55),
