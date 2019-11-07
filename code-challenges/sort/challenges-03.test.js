@@ -72,10 +72,14 @@ Here is an example of the input:
 ------------------------------------------------------------------------------------------------ */
 
 const sortByPrice = (arr) => {
-  arr.sort((a, b) => {
-    return a.price > b.price;
+  arr.sort((item1, item2) => {
+    if (item1.price > item2.price) {
+      return 1;
+    } else {
+      return -1;
+    }
   });
-  return(arr.sort())
+  return arr;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -136,7 +140,28 @@ If two people have the same full name, the younger one should come first. Do not
 ------------------------------------------------------------------------------------------------ */
 
 const sortPeopleBetter = (arr) => {
-  // Solution code here...
+
+  arr.sort((a, b) => {
+
+    if (a.lastName > b.lastName) {
+      return 1;
+    } else if (a.lastName < b.lastName){
+      return -1;
+    } else {
+      if (a.firstName > b.firstName) {
+        return 1;
+      } else if (a.firstName < b.firstName){
+        return -1;
+      } else {
+        if (a.age > b.age) {
+          return 1;
+        } else if (a.age < b.age){
+          return -1;
+        }
+      }
+    }
+  });
+  return arr;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -228,7 +253,7 @@ describe('Testing challenge 4', () => {
   });
 });
 
-xdescribe('Testing challenge 5', () => {
+describe('Testing challenge 5', () => {
   test('It should sort items by their price', () => {
     expect(sortByPrice([
       {name: 'Sweatshirt', price: 45},
@@ -264,7 +289,7 @@ describe('Testing challenge 7', () => {
   });
 });
 
-xdescribe('Testing challenge 8', () => {
+describe('Testing challenge 8', () => {
   test('It should sort people with more strict ordering', () => {
     const family = [
       new Person('Casey', 'Codefellows', 55),
