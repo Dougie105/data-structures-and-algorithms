@@ -78,7 +78,7 @@ const removeWithForEach = (arr, callback) => {
   arr.forEach(function (value) {
     callback(value, arr);
   });
-  return arr
+  return arr;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -92,7 +92,13 @@ This anonymous function should accept up to three arguments: the element, the in
 ------------------------------------------------------------------------------------------------ */
 
 const removeWithAnon = (arr) => {
+
   arr.forEach((val, idx, arr) => ((val % 3) === 2) && arr.pop());
+  arr.forEach(function(value, index, arr){
+    if(value % 3 ===2){
+      arr.pop();
+    }
+  })
   return arr;
 };
 
@@ -205,6 +211,7 @@ describe('Testing challenge 6', () => {
 });
 
 describe('Testing challenge 7', () => {
+
   const inputs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
 
   test('It should print out messages or numbers', () => {
@@ -212,3 +219,4 @@ describe('Testing challenge 7', () => {
     expect(fizzbuzz(inputs).length).toStrictEqual(16);
   });
 });
+
