@@ -16,8 +16,8 @@ For example, if the input is 'Welcome', the output will be:
 const howMuchPencil = (str) => {
   let result = [str];
   let arrStr = str.split('');
-  for(let i = 0; i < str.length; i++){
-    arrStr.splice(0,1);
+  for (let i = 0; i < str.length; i++) {
+    arrStr.splice(0, 1);
     result.push(arrStr.join(''));
   }
   return result;
@@ -82,7 +82,7 @@ const listFoods = (recipe) => {
   let arr = recipe.ingredients;
   arr.forEach(ingredients => {
     let arr2 = ingredients.split(' ');
-    arr2.splice(0,2);
+    arr2.splice(0, 2);
     result.push(arr2.join(' '));
   });
   return result;
@@ -101,7 +101,7 @@ const splitFoods = (recipe) => {
   let arr = recipe.ingredients;
   arr.forEach(ingredients => {
     let arr2 = ingredients.split(' ');
-    arr2.splice(0,2);
+    arr2.splice(0, 2);
     result.push(arr2.join(' '));
   });
   return result;
@@ -142,8 +142,8 @@ For example:
 ------------------------------------------------------------------------------------------------ */
 
 const removeEvenValues = (arr) => {
-  for(let i = arr.length; i >= 0; i--) {
-    if(arr[i] % 2 === 0) arr.splice(i, 1);
+  for (let i = arr.length; i >= 0; i--) {
+    if (arr[i] % 2 === 0) arr.splice(i, 1);
   }
 };
 
@@ -163,7 +163,13 @@ removeLastCharacters('Gregor', 9) returns ''
 ------------------------------------------------------------------------------------------------ */
 
 const removeLastCharacters = (str, numberOfCharacters) => {
-  // Solution code here...
+  if (numberOfCharacters > str.length) return '';
+  else if (numberOfCharacters < 0) return str;
+  else {
+    let arr = str.split('');
+    arr.splice((-numberOfCharacters));
+    return arr.join('');
+  }
 };
 
 
@@ -268,7 +274,7 @@ describe('Testing challenge 6', () => {
   });
 });
 
-xdescribe('Testing challenge 7', () => {
+describe('Testing challenge 7', () => {
   test('It should shorten the string based on the first argument', () => {
     expect(removeLastCharacters('Gregor', 2)).toStrictEqual('Greg');
     expect(removeLastCharacters('Gregor', 2).length).toStrictEqual(4);
