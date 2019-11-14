@@ -10,8 +10,8 @@ Note: You may not use the array's built-in length property.
 
 const countNumberOfElements = (arr) => {
   return arr.reduce((accumulator) => {
-    accumulator = 0;
-    return accumulator++;
+    accumulator++;
+    return accumulator;
   }, 0);
 };
 
@@ -73,9 +73,9 @@ let starWarsData = [{
 }];
 
 const returnNames = (arr) => {
-  return arr.reduce((arr2, person) => {
-    arr2.push(person.name);
-    return arr2;
+  return arr.reduce((accumulator, person, idx) => {
+    accumulator[idx] = person.name;
+    return accumulator;
   }, []);
 };
 
@@ -88,7 +88,10 @@ Note: You must use reduce for this challenge. You may not use the built-in .reve
 ------------------------------------------------------------------------------------------------ */
 
 const reversedString = (str) => {
-  return str.split('').reduce((accumulator, value) => value + accumulator ,'');
+  return str.split('').reduce((accumulator, value) => {
+    accumulator = `${value}${accumulator}`;
+    return accumulator;
+  })
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -141,7 +144,10 @@ const characters = [
 ];
 
 const countNumberOfChildren = (arr) => {
-  // Solution code here...
+  return arr.reduce((accumulator, kid) => {
+    if (kid.children) accumulator += kid.children.length;
+    return accumulator;
+  }, 0);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -174,7 +180,10 @@ const isPrime = (value) => {
 };
 
 const countPrimeNumbers = (arr) => {
-  // Solution code here...
+  return arr.reduce((accumulator, num) => {
+    if (isPrime(num)) accumulator++;
+    return accumulator;
+  }, 0);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -263,7 +272,7 @@ describe('Testing challenge 3', () => {
   });
 });
 
-xdescribe('Testing challenge 4', () => {
+describe('Testing challenge 4', () => {
   test('It should return the total number of children', () => {
     expect(countNumberOfChildren(characters)).toStrictEqual(14);
   });
@@ -275,7 +284,7 @@ xdescribe('Testing challenge 5', () => {
   });
 });
 
-xdescribe('Testing challenge 6', () => {
+describe('Testing challenge 6', () => {
   test('It should return a count of the prime numbers in the array', () => {
     expect(countPrimeNumbers([1, 2, 13, 64, 45, 56, 17, 8])).toStrictEqual(3);
   });
