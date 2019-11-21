@@ -47,8 +47,11 @@ Write a function named salesData that uses forEach to iterate over the hourlySal
 ------------------------------------------------------------------------------------------------ */
 
 const salesData = (hours, data) => {
-  // Solution code here...
+  return hours.map((time, index) => {
+    return {sales: `${data[index]} cookies`, time: time,};
+  });
 };
+
 
 /* ------------------------------------------------------------------------------------------------
 CHALLENGE 3
@@ -114,7 +117,7 @@ For example, the following input returns a product of 720: [[1,2], [3,4], [5,6]]
 ------------------------------------------------------------------------------------------------ */
 
 const calculateProduct = (numbers) => {
-  // Solution code here...
+  return numbers.reduce((total, arr) => total * arr.reduce((arrTotal, value) => value * arrTotal, 1), 1);
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -134,7 +137,14 @@ const weeklyTemperatures = [
 ];
 
 const averageDailyTemperature = (weather) => {
-  // Solution code here...
+  let tempTotal = weather.reduce((sums, day) => {
+    return day.reduce((dayTotal, temp) => {
+      dayTotal.tempSum += temp;
+      dayTotal.values ++;
+      return dayTotal;
+    }, sums);
+  }, {tempSum: 0, values: 0,});
+  return tempTotal.tempSum / tempTotal.values;
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -155,7 +165,18 @@ let lowestWeeklyTemperatureData = [
 ];
 
 const lowestWeeklyAverage = (weather) => {
-  // Solution code here...
+  return weather.reduce((low, day) => {
+    let weekAvg = day.reduce((dayTotal, temp) => {
+      dayTotal.tempSum += temp;
+      dayTotal.values ++;
+      return dayTotal;
+    }, {tempSum: 0, values: 0,});
+    let avg = weekAvg.tempSum / weekAvg.values;
+    if (!low)
+      return avg;
+    return avg < low ? avg : low;
+  }, null);
+
 };
 
 /* ------------------------------------------------------------------------------------------------
@@ -195,7 +216,7 @@ describe('Testing challenge 1', () => {
   });
 });
 
-xdescribe('Testing challenge 2', () => {
+describe('Testing challenge 2', () => {
   test('It should create an object of data for each store', () => {
     expect(salesData(hoursOpen, grandTotal(cookieStores))).toStrictEqual([
       { sales: '88 cookies', time: '9 a.m.' },
@@ -242,7 +263,7 @@ describe('Testing challenge 4', () => {
   });
 });
 
-xdescribe('Testing challenge 5', () => {
+describe('Testing challenge 5', () => {
   test('It should multiply all the numbers together', () => {
     expect(calculateProduct([[1, 2], [3, 4], [5, 6]])).toStrictEqual(720);
   });
@@ -255,13 +276,13 @@ xdescribe('Testing challenge 5', () => {
   });
 });
 
-xdescribe('Testing challenge 6', () => {
+describe('Testing challenge 6', () => {
   test('It should calculate and return the average temperature of the data set', () => {
     expect(averageDailyTemperature(weeklyTemperatures)).toStrictEqual(60.25);
   });
 });
 
-xdescribe('Testing challenge 7', () => {
+describe('Testing challenge 7', () => {
   test('It should return the lowest weekly average temperature within the data set', () => {
     expect(lowestWeeklyAverage(weeklyTemperatures)).toStrictEqual(57);
     expect(lowestWeeklyAverage(lowestWeeklyTemperatureData)).toStrictEqual(46);
